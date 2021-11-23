@@ -19,8 +19,21 @@ namespace Proyecto_Uso_de_Funciones
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int entero = int.Parse(textNumero.Text);
-            int[] binario=decimalBinario(entero);
+
+
+            bool esNumCorrecto = int.TryParse(this.textNumero.Text, out int numero);
+            if (!esNumCorrecto)
+            {
+                MessageBox.Show("Debe ingresar un valor numerico");
+                return;
+            }
+            if (!(numero >= 0 && numero <= 255))
+            {
+                MessageBox.Show("Número fuera de rango");
+                return;
+            }
+
+            int[] binario = decimalBinario(numero);
             Console.WriteLine("Inicio");
             for (int i = binario.Length - 1; i >= 0; i--)
             {
@@ -42,9 +55,6 @@ namespace Proyecto_Uso_de_Funciones
                 if (binario[2] == 0) this.checkBox6.Checked = false;
                 if (binario[1] == 0) this.checkBox7.Checked = false;
                 if (binario[0] == 0) this.checkBox8.Checked = false;
-
-
-
             }
                Console.WriteLine("Fin");
             //Hay que hacerlo automatico
@@ -66,8 +76,37 @@ namespace Proyecto_Uso_de_Funciones
             return binario;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void botonCalcularDecimal_Click(object sender, EventArgs e)
         {
+            int num = 0;
+            if (checkBox8.Checked)num += 1;
+            if (checkBox7.Checked) num += 2;
+            if (checkBox6.Checked) num += 4;
+            if (checkBox5.Checked) num += 8;
+            if (checkBox4.Checked) num += 16;
+            if (checkBox3.Checked) num += 32;
+            if (checkBox2.Checked) num += 64;
+            if (checkBox1.Checked) num += 128;
+            this.textNumero.Text = num.ToString();
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            sumaBinarioDecimal();
+        }
+        void sumaBinarioDecimal()
+        {
+            int num = 0;
+            if (checkBox8.Checked) num += 1;
+            if (checkBox7.Checked) num += 2;
+            if (checkBox6.Checked) num += 4;
+            if (checkBox5.Checked) num += 8;
+            if (checkBox4.Checked) num += 16;
+            if (checkBox3.Checked) num += 32;
+            if (checkBox2.Checked) num += 64;
+            if (checkBox1.Checked) num += 128;
+            this.textNumero.Text = num.ToString();
+            //Trabajo en clases
         }
     }
 }
